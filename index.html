@@ -1,0 +1,256 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="theme-color" content="#070b12">
+    <title>NaijaTrade — NGN Trading Platform</title>
+    <link rel="stylesheet" href="style.css">
+</head>
+
+<body>
+
+    <div id="loginScreen" class="login-screen">
+        <div class="login-container">
+            <div class="login-brand">
+                <div class="login-logo">₦</div>
+                <h1>NaijaTrade</h1>
+                <p>NGN Trading Platform</p>
+            </div>
+
+            <form id="loginForm" class="login-form">
+                <h2>Welcome back</h2>
+                <p class="login-subtitle">Sign in to access your trading dashboard.</p>
+
+                <label class="field-label">Email address</label>
+                <input id="loginEmail" class="auth-input" type="email" placeholder="you@example.com" required>
+
+                <label class="field-label">Password</label>
+                <div class="password-wrap">
+                    <input id="loginPassword" class="auth-input" type="password" placeholder="Minimum 6 characters"
+                        required>
+                    <button type="button" id="togglePassword">Show</button>
+                </div>
+
+                <div class="login-options">
+                    <label><input type="checkbox" id="rememberMe"> Remember me</label>
+                    <a href="#" id="forgotPassword">Forgot password?</a>
+                </div>
+
+                <button class="primary-btn" type="submit">Sign In</button>
+
+                <div class="or"><span>OR</span></div>
+
+                <button class="secondary-btn" type="button" id="demoLogin">Enter Demo Account</button>
+
+                <p class="create-account">Demo environment • No real money is used</p>
+            </form>
+        </div>
+    </div>
+
+    <div id="tradingPlatform" class="hidden">
+
+        <header class="topbar">
+            <div class="brand">
+                <div class="brand-logo">₦</div>
+                <div><strong>NaijaTrade</strong><small>Trading Platform</small></div>
+            </div>
+
+            <div class="market-status"><span class="status-dot"></span> Live simulation</div>
+
+            <div class="top-actions">
+                <button id="depositBtn" class="deposit-btn">Deposit</button>
+                <button id="logoutBtn" class="icon-btn">Logout</button>
+                <div class="profile">EA</div>
+            </div>
+        </header>
+
+        <div class="app">
+            <aside class="sidebar">
+                <a class="active" href="#dashboard">▦ <span>Dashboard</span></a>
+                <a href="#markets">📊 <span>Markets</span></a>
+                <a href="#positions">📈 <span>Positions</span></a>
+                <a href="#history">📜 <span>History</span></a>
+                <a href="#portfolio">💼 <span>Portfolio</span></a>
+                <a href="#settings">⚙️ <span>Settings</span></a>
+
+                <div class="sidebar-bottom">
+                    <div class="mini-user">
+                        <div class="avatar">EA</div>
+                        <div><strong id="userEmail">demo@naijatrade.com</strong><small>Demo account</small></div>
+                    </div>
+                </div>
+            </aside>
+
+            <main class="main" id="dashboard">
+
+                <section class="stats">
+                    <div class="stat-card"><span>Available Balance</span><strong
+                            id="balance">₦1,000,000.00</strong><small>Demo funds</small></div>
+                    <div class="stat-card"><span>Equity</span><strong id="equity">₦1,000,000.00</strong><small>Balance +
+                            open P/L</small></div>
+                    <div class="stat-card"><span>Open P/L</span><strong id="openPL">₦0.00</strong><small
+                            id="plPercent">0.00%</small></div>
+                    <div class="stat-card"><span>Buying Power</span><strong
+                            id="buyingPower">₦1,000,000.00</strong><small>Demo account</small></div>
+                </section>
+
+                <section class="market-strip" id="markets">
+                    <div class="pair-info">
+                        <div class="pair-icon">$</div>
+                        <div><strong>USD / NGN</strong><small>US Dollar / Nigerian Naira</small></div>
+                    </div>
+                    <div class="live-price"><strong id="currentPrice">1346.10</strong><span id="priceChange"
+                            class="positive">+0.00%</span></div>
+                    <div class="market-stat"><span>24H High</span><strong id="highPrice">1346.10</strong></div>
+                    <div class="market-stat"><span>24H Low</span><strong id="lowPrice">1346.10</strong></div>
+                    <div class="market-stat"><span>Reference</span><strong>₦1,346.10/$</strong></div>
+                </section>
+
+                <section class="trading-area">
+                    <div class="chart-card">
+                        <div class="chart-header">
+                            <div class="timeframes">
+                                <button class="time active" data-time="1m">1m</button>
+                                <button class="time" data-time="5m">5m</button>
+                                <button class="time" data-time="15m">15m</button>
+                                <button class="time" data-time="1h">1H</button>
+                            </div>
+                            <div class="chart-tools"><button id="resetChart">Reset</button></div>
+                        </div>
+                        <div class="chart-wrapper">
+                            <canvas id="chart"></canvas>
+                            <div class="chart-label">SIMULATED LIVE MARKET</div>
+                        </div>
+                    </div>
+
+                    <div class="order-card">
+                        <div class="order-tabs">
+                            <button class="order-tab active" id="buyTab">Buy</button>
+                            <button class="order-tab" id="sellTab">Sell</button>
+                        </div>
+
+                        <div class="order-body">
+                            <label class="field-label">Market</label>
+                            <select id="market" class="dark-input">
+                                <option>USD/NGN</option>
+                                <option>EUR/NGN</option>
+                                <option>GBP/NGN</option>
+                                <option>BTC/NGN</option>
+                            </select>
+
+                            <label class="field-label">Order type</label>
+                            <select id="orderType" class="dark-input">
+                                <option>Market</option>
+                                <option>Limit</option>
+                            </select>
+
+                            <label class="field-label">Price</label>
+                            <input id="orderPrice" class="dark-input" type="number" step="0.01" value="1346.10">
+
+                            <label class="field-label">Amount (USD)</label>
+                            <input id="amount" class="dark-input" type="number" min="1" value="100">
+
+                            <div class="order-summary">
+                                <div><span>Position value</span><strong id="positionValue">₦134,610.00</strong></div>
+                                <div><span>Estimated fee</span><strong id="fee">₦134.61</strong></div>
+                                <div><span>Total</span><strong id="total">₦134,744.61</strong></div>
+                            </div>
+
+                            <button id="tradeButton" class="trade-button">Buy USD</button>
+                            <small class="risk-warning">Simulation only. No real orders or funds are
+                                transmitted.</small>
+                        </div>
+                    </div>
+                </section>
+
+                <section class="panel" id="positions">
+                    <div class="panel-header">
+                        <div>
+                            <h2>Open Positions</h2><small>Active simulated trades</small>
+                        </div><span id="positionCount">0 positions</span>
+                    </div>
+                    <div class="table-wrap">
+                        <table>
+                            <thead>
+                                <tr>
+                                    <th>Market</th>
+                                    <th>Side</th>
+                                    <th>Amount</th>
+                                    <th>Entry</th>
+                                    <th>Current</th>
+                                    <th>P/L</th>
+                                    <th>Action</th>
+                                </tr>
+                            </thead>
+                            <tbody id="positionsTable">
+                                <tr class="empty-row">
+                                    <td colspan="7">No open positions</td>
+                                </tr>
+                            </tbody>
+                        </table>
+                    </div>
+                </section>
+
+                <section class="panel" id="history">
+                    <div class="panel-header">
+                        <div>
+                            <h2>Trade History</h2><small>Completed simulated trades</small>
+                        </div>
+                    </div>
+                    <div class="table-wrap">
+                        <table>
+                            <thead>
+                                <tr>
+                                    <th>Time</th>
+                                    <th>Market</th>
+                                    <th>Side</th>
+                                    <th>Amount</th>
+                                    <th>Price</th>
+                                    <th>P/L</th>
+                                </tr>
+                            </thead>
+                            <tbody id="historyTable">
+                                <tr class="empty-row">
+                                    <td colspan="6">No completed trades</td>
+                                </tr>
+                            </tbody>
+                        </table>
+                    </div>
+                </section>
+
+                <section class="panel info-panel" id="portfolio">
+                    <div class="panel-header">
+                        <div>
+                            <h2>Portfolio</h2><small>Demo account overview</small>
+                        </div>
+                    </div>
+                    <div class="portfolio-grid">
+                        <div><span>Base currency</span><strong>NGN (₦)</strong></div>
+                        <div><span>Primary pair</span><strong>USD/NGN</strong></div>
+                        <div><span>Execution</span><strong>Simulation</strong></div>
+                        <div><span>Risk mode</span><strong>Practice</strong></div>
+                    </div>
+                </section>
+
+            </main>
+        </div>
+    </div>
+
+    <div class="modal" id="depositModal">
+        <div class="modal-box">
+            <button class="modal-close" id="closeModal">×</button>
+            <h2>Demo Deposit</h2>
+            <p>Add simulated NGN funds. This does not move real money.</p>
+            <input id="depositAmount" class="dark-input" type="number" min="1" placeholder="Amount in ₦">
+            <button id="confirmDeposit" class="primary-btn">Add Demo Funds</button>
+        </div>
+    </div>
+
+    <div class="toast" id="toast"></div>
+
+    <script src="script.js"></script>
+</body>
+
+</html>
